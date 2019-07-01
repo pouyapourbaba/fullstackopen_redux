@@ -20,20 +20,20 @@ const asObject = anecdote => {
 const initialState = anecdotesAtStart.map(asObject);
 
 const reducer = (state = initialState, action) => {
-  const sortedState = state.sort((a, b) => b.votes - a.votes);
+  // const sortedState = state.sort((a, b) => b.votes - a.votes);
   console.log("state now: ", state);
   console.log("action", action);
   switch (action.type) {
     case "VOTE":
       const id = action.payload;
-      const anecdote = sortedState.find(n => n.id === id);
+      const anecdote = state.find(n => n.id === id);
       const votedAnecdote = { ...anecdote, votes: anecdote.votes + 1 };
-      return sortedState.map(a => (a.id !== id ? a : votedAnecdote));
+      return state.map(a => (a.id !== id ? a : votedAnecdote));
     case "CREATE":
       const newAnecdote = asObject(action.payload);
-      return [...sortedState, newAnecdote];
+      return [...state, newAnecdote];
     default:
-      return sortedState;
+      return state;
   }
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { create } from "../reducers/anecdoteReducer";
 
-const AnecdoteForm = (props) => {
+const AnecdoteForm = props => {
   const handleCreate = e => {
     e.preventDefault();
     props.store.dispatch(create(e.target.anecdote.value));
@@ -9,12 +9,15 @@ const AnecdoteForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleCreate}>
-      <div>
-        <input name="anecdote" />
-      </div>
-      <button type="submit">create</button>
-    </form>
+    <div>
+      <h2>create new</h2>
+      <form onSubmit={handleCreate}>
+        <div>
+          <input name="anecdote" />
+        </div>
+        <button type="submit">create</button>
+      </form>
+    </div>
   );
 };
 
