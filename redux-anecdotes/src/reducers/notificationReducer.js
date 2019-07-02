@@ -1,5 +1,5 @@
 const initialState = {
-  message: "I am a notification",
+  message: "",
   type: ""
 };
 
