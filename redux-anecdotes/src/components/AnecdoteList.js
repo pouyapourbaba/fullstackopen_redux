@@ -2,7 +2,7 @@ import React from "react";
 import { vote } from "../reducers/anecdoteReducer";
 
 const AnecdoteList = props => {
-  const anecdotes = props.store.getState().sort((a, b) => b.votes - a.votes);
+  const anecdotes = props.store.getState().anecdotes.sort((a, b) => b.votes - a.votes);
 
   const handleVote = id => {
     props.store.dispatch(vote(id));
