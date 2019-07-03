@@ -4,16 +4,9 @@ import { connect } from "react-redux";
 import anecdoteService from "../services/anecdotes";
 
 const AnecdoteForm = props => {
-  const handleCreate = async e => {
+  const handleCreate = e => {
     e.preventDefault();
-
-    // TODO
-    // The use of e.target in async way causes errors
-
-    const newAnecdote = await anecdoteService.createNew(
-      e.target.anecdote.value
-    );
-    props.create(newAnecdote);
+    props.create(e.target.anecdote.value);
     e.target.anecdote.value = "";
   };
 

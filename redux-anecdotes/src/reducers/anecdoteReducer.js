@@ -55,9 +55,12 @@ export const vote = id => {
 };
 
 export const create = anecdote => {
-  return {
-    type: "CREATE",
-    payload: anecdote
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(anecdote);
+    dispatch({
+      type: "CREATE",
+      payload: newAnecdote
+    });
   };
 };
 
