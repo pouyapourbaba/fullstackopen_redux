@@ -1,5 +1,6 @@
 import React from "react";
 import { setFilter } from "../reducers/filterReducer";
+import { connect } from "react-redux";
 
 const Filter = props => {
   const handleChange = e => {
@@ -17,4 +18,4 @@ const Filter = props => {
   );
 };
 
-export default Filter;
+export default connect()(Filter);

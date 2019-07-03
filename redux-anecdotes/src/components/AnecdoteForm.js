@@ -1,5 +1,6 @@
 import React from "react";
 import { create } from "../reducers/anecdoteReducer";
+import { connect } from "react-redux";
 
 const AnecdoteForm = props => {
   const handleCreate = e => {
@@ -21,4 +22,4 @@ const AnecdoteForm = props => {
   );
 };
 
-export default AnecdoteForm;
+export default connect()(AnecdoteForm);
