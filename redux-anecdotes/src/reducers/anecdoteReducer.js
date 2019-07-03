@@ -6,6 +6,7 @@
 //   "Premature optimization is the root of all evil.",
 //   "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it."
 // ];
+import anecdoteService from "../services/anecdotes";
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
@@ -27,8 +28,8 @@ const anecdoteReducer = (state = [], action) => {
       const votedAnecdote = { ...anecdote, votes: anecdote.votes + 1 };
       return state.map(a => (a.id !== id ? a : votedAnecdote));
     case "CREATE":
-      const newAnecdote = asObject(action.payload);
-      return [...state, newAnecdote];
+      // const newAnecdote = asObject(action.payload);
+      return [...state, action.payload];
     case "INIT_ANECDOTES":
       return action.payload;
     default:
@@ -36,10 +37,13 @@ const anecdoteReducer = (state = [], action) => {
   }
 };
 
-export const initializeAnecdotes = anecdotes => {
-  return {
-    type: "INIT_ANECDOTES",
-    payload: anecdotes
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll();
+    dispatch({
+      type: "INIT_ANECDOTES",
+      payload: anecdotes
+    });
   };
 };
 
