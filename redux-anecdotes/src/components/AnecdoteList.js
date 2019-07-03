@@ -7,14 +7,6 @@ import {
 import { connect } from "react-redux";
 
 const AnecdoteList = props => {
-  let anecdotes = props.anecdotes.sort((a, b) => b.votes - a.votes);
-
-  const { filter } = props;
-  if (filter !== "") {
-    anecdotes = anecdotes.filter(anecdote =>
-      anecdote.content.toLowerCase().includes(filter)
-    );
-  }
 
   const handleVote = anecdote => {
     props.vote(anecdote.id);
@@ -31,7 +23,7 @@ const AnecdoteList = props => {
 
   return (
     <div>
-      {anecdotes.map(anecdote => (
+      {props.visibleAnecdotes.map(anecdote => (
         <div key={anecdote.id}>
           <div>{anecdote.content}</div>
           <div>
@@ -44,9 +36,18 @@ const AnecdoteList = props => {
   );
 };
 
+const anecdotesToShow = ({ anecdotes, filter }) => {
+  if (filter !== "") {
+    return (anecdotes.filter(anecdote =>
+      anecdote.content.toLowerCase().includes(filter)
+    ));
+  }
+  return anecdotes;
+};
+
 const mapStateToProps = state => {
   return {
-    anecdotes: state.anecdotes,
+    visibleAnecdotes: anecdotesToShow(state),
     filter: state.filter
   };
 };

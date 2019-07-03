@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 const AnecdoteForm = props => {
   const handleCreate = e => {
     e.preventDefault();
-    props.store.dispatch(create(e.target.anecdote.value));
+    props.create(e.target.anecdote.value);
     e.target.anecdote.value = "";
   };
 
@@ -22,4 +22,11 @@ const AnecdoteForm = props => {
   );
 };
 
-export default connect()(AnecdoteForm);
+const mapDispatchToProps = {
+  create
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AnecdoteForm);
