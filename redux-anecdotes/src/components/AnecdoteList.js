@@ -7,7 +7,6 @@ import {
 import { connect } from "react-redux";
 
 const AnecdoteList = props => {
-
   const handleVote = anecdote => {
     props.vote(anecdote.id);
     const notification = {
@@ -38,16 +37,17 @@ const AnecdoteList = props => {
 
 const anecdotesToShow = ({ anecdotes, filter }) => {
   if (filter !== "") {
-    return (anecdotes.filter(anecdote =>
+    return anecdotes.filter(anecdote =>
       anecdote.content.toLowerCase().includes(filter)
-    ));
+    );
   }
   return anecdotes;
 };
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
-    visibleAnecdotes: anecdotesToShow(state),
+    visibleAnecdotes: anecdotesToShow(state).sort((a, b) => b.votes - a.votes),
     filter: state.filter
   };
 };

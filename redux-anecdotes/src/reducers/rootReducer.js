@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import anecdoteReducer from "./anecdoteReducer";
+import anecdoteReducer, {initializeAnecdotes} from "./anecdoteReducer";
 import notificationReducer from "./notificationReducer";
 import filterReducer from "./filterReducer";
 
