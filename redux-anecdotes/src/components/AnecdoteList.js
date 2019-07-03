@@ -4,15 +4,16 @@ import {
   setNotification,
   removeNotification
 } from "./../reducers/notificationReducer";
+import { connect } from "react-redux";
 
 const AnecdoteList = props => {
-  let anecdotes = props.store
-    .getState()
-    .anecdotes.sort((a, b) => b.votes - a.votes);
+  let anecdotes = props.anecdotes.sort((a, b) => b.votes - a.votes);
 
-  const { filter } = props.store.getState();
+  const { filter } = props;
   if (filter !== "") {
-    anecdotes = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter));
+    anecdotes = anecdotes.filter(anecdote =>
+      anecdote.content.toLowerCase().includes(filter)
+    );
   }
 
   const handleVote = anecdote => {
@@ -43,4 +44,11 @@ const AnecdoteList = props => {
   );
 };
 
-export default AnecdoteList;
+const mapStateToProps = state => {
+  return {
+    anecdotes: state.anecdotes,
+    filter: state.filter
+  };
+};
+
+export default connect(mapStateToProps)(AnecdoteList);

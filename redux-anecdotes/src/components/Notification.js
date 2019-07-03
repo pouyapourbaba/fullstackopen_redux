@@ -1,8 +1,8 @@
 import React from "react";
 
 const Notification = ({ store }) => {
-  const { notification } = store.getState();
-
+  // const { notification } = store.getState();
+  const notification = { message: "" };
   const style = {
     border: "solid",
     padding: 10,
