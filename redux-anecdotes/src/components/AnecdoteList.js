@@ -3,7 +3,7 @@ import { vote } from "../reducers/anecdoteReducer";
 import {
   setNotification,
   removeNotification
-} from "./../reducers/notificationReducer";
+} from "../reducers/notificationReducer";
 import { connect } from "react-redux";
 
 const AnecdoteList = props => {
@@ -17,15 +17,15 @@ const AnecdoteList = props => {
   }
 
   const handleVote = anecdote => {
-    props.store.dispatch(vote(anecdote.id));
+    props.vote(anecdote.id);
     const notification = {
       message: `you voted '${anecdote.content}'`,
       type: "success"
     };
-    props.store.dispatch(setNotification(notification));
+    props.setNotification(notification);
 
     setTimeout(() => {
-      props.store.dispatch(removeNotification());
+      props.removeNotification();
     }, 5000);
   };
 
@@ -51,4 +51,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AnecdoteList);
+const mapDispatchToProps = {
+  vote,
+  setNotification,
+  removeNotification
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AnecdoteList);

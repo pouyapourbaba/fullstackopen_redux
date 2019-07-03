@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const Filter = props => {
   const handleChange = e => {
-    props.store.dispatch(setFilter(e.target.value.toLowerCase()));
+    props.setFilter(e.target.value.toLowerCase());
   };
 
   const style = {
@@ -18,4 +18,8 @@ const Filter = props => {
   );
 };
 
-export default connect()(Filter);
+const mapDispatchToProps = {
+  setFilter
+}
+
+export default connect(null, mapDispatchToProps)(Filter);
