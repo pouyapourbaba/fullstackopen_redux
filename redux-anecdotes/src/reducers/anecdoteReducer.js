@@ -23,10 +23,8 @@ const asObject = anecdote => {
 const anecdoteReducer = (state = [], action) => {
   switch (action.type) {
     case "VOTE":
-      const id = action.payload;
-      const anecdote = state.find(n => n.id === id);
-      const votedAnecdote = { ...anecdote, votes: anecdote.votes + 1 };
-      return state.map(a => (a.id !== id ? a : votedAnecdote));
+      const votedAnecdote = action.payload;
+      return state.map(a => (a.id !== votedAnecdote.id ? a : votedAnecdote));
     case "CREATE":
       // const newAnecdote = asObject(action.payload);
       return [...state, action.payload];
@@ -47,10 +45,11 @@ export const initializeAnecdotes = () => {
   };
 };
 
-export const vote = id => {
-  return {
-    type: "VOTE",
-    payload: id
+export const vote = anecdote => {
+  return async dispatch => {
+    const voted = { ...anecdote, votes: anecdote.votes + 1 };
+    const response = await anecdoteService.vote(voted);
+    dispatch({ type: "VOTE", payload: response });
   };
 };
 

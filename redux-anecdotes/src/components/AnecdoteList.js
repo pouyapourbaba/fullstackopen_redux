@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 const AnecdoteList = props => {
   const handleVote = anecdote => {
-    props.vote(anecdote.id);
+    props.vote(anecdote);
     const notification = {
       message: `you voted '${anecdote.content}'`,
       type: "success"
@@ -45,7 +45,6 @@ const anecdotesToShow = ({ anecdotes, filter }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     visibleAnecdotes: anecdotesToShow(state).sort((a, b) => b.votes - a.votes),
     filter: state.filter
